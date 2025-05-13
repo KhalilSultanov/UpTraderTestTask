@@ -1,0 +1,23 @@
+<ul>
+    {% for item in menu_items %}
+        <li class="menu-item {% if item.is_open %}open{% endif %}">
+            <div class="label toggle">
+                {% if item.temp_children %}
+                    <span class="chevron">▶</span>
+                {% else %}
+                    <span style="width: 1em;"></span>
+                {% endif %}
+                <a href="{{ item.resolved_url }}"
+                   class="{% if item.is_active %}active-link{% endif %}"
+                   data-toggle>
+                    {{ item.title }}
+                </a>
+            </div>
+            {% if item.temp_children %}
+                <div class="submenu">
+                    {% include "draw_menu.html" with menu_items=item.temp_children %}
+                </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
